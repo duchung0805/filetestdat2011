@@ -80,7 +80,6 @@ import re
 
 st.title("Phân loại văn bản spam hay không spam")
 
-# ---- Các hàm xử lý văn bản ----
 def lam_sach(text):
     text = text.lower()
     text = re.sub(r'[,?.!/\\|_{}+=~@#$%^&*()]', '', text)
@@ -99,11 +98,9 @@ def dem_tu(words):
             tan_suat[tu] = 1
     return tan_suat
 
-# ---- Dữ liệu mẫu để huấn luyện ----
 spam = "Nhanh tay nhận ngay khuyến mãi cực lớn! Hôm nay duy nhất, giảm giá tới 70% cho hàng ngàn sản phẩm hot nhất thị trường."
 not_spam = "Chào bạn, mình gửi thông báo về cuộc họp nhóm vào 9h sáng mai tại phòng B2. Nhớ đến đúng giờ nhé!"
 
-# ---- Làm sạch và tách từ ----
 spam = lam_sach(spam)
 not_spam = lam_sach(not_spam)
 
@@ -119,7 +116,6 @@ tong_not_spam = len(ds_not_spam)
 tu_vung = list(set(ds_spam + ds_not_spam))
 tong_tu = len(tu_vung)
 
-# ---- Hàm phân loại ----
 def du_doan(text):
     text = lam_sach(text)
     ds_tu = tach_tu(text)
@@ -141,9 +137,9 @@ def du_doan(text):
     else:
         return "Không spam"
 
-test_cau = "Nhận ưu đãi cực sốc hôm nay"
+test_cau = st.text_input("nhap van ban")
 
-ket_qua = du_doan(test_cau)
-
-st.write(f"Nội dung:{test_cau}")
-st.write(f"Kết quả:{ket_qua}")
+if test_cau:
+    ket_qua = du_doan(test_cau)
+    st.write(f"Nội dung:{test_cau}")
+    st.write(f"Kết quả:{ket_qua}")
